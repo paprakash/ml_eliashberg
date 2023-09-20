@@ -1,3 +1,9 @@
+# script to solve full isotropic Eliashberg equation and isotropic LEE
+# we use a general alpha2F for Niobium and calculate the lambda matrix
+# No of mastubara freq is 2*# times the max phonon freq (n=#*max_ph_freq ie m=2*#*max_ph_freq, where m is total #matsubara freq)
+# We use previous delta as the initial guess for the next T
+# We still need to work on changing # matsubara freq with T
+
 import numpy as np
 import scipy as sp
 import matplotlib.pyplot as plt
