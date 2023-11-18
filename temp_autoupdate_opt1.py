@@ -12,7 +12,8 @@ def Rn(delta, omega):
 
 
 def Z(R, omega, lamda, T):
-    X = (omega[:, None] / np.sqrt(R)) * lamda
+    #X = (omega[:, None] / np.sqrt(R)) * lamda
+    X = (omega / np.sqrt(R)) * lamda
     zz = 1 + (np.pi * T / omega) * np.sum(X, axis=1)
     return zz
 
@@ -85,6 +86,8 @@ def del_t(T, delta_old):
         ]
     )
     
+    # print the maximum element of lamda matrix
+    print("lamda_max=", np.amax(lamda))
     # converge for self consistency
     zz_new, delta_new = self_consistent_solution(
                     Rn, Z, gap, delta_old, omega, lamda, T, mu, convergence
@@ -110,7 +113,7 @@ def cal2(delta_previous, T, T_del):
 def rec(delta_old, T, T_del):
 
     delta_new=delta_old.copy()
-    while np.amax(np.abs(delta_new)) > 0.02*np.amax(np.abs(delta_init)):
+    while np.amax(np.abs(delta_new)) > 0.08*np.amax(np.abs(delta_init)):
         delta_new, T , T_del, TT, del_max, zz_max = cal2(delta_old, T, T_del)
         delta_old = delta_new.copy()
         print("del_new",np.amax(np.abs(delta_new))) 
@@ -130,7 +133,7 @@ n = 1592
 print("n=", n)
 m = 2 * n
 print("m=", m)
-convergence = 1e-6
+convergence = 1e-4
 print("convergence=", convergence)
 
 
